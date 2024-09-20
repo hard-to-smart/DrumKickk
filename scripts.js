@@ -10,32 +10,61 @@ for(let key in instrument){
 
     image_container.classList.add("box")
     const img = document.createElement("img");
+
+
     img.src = `/${image_path}${instrument[key]}.png`
     img.addEventListener('click', ()=>{
         playSound(instrument[key]);
     });
     right.appendChild(image_container).appendChild(img);
-
+    displayKey("", right)
+    console.log(right)
 }
 
-document.addEventListener("keydown", function (event) {
+document.addEventListener("keydown", (event) => keyPressed(event));
 
+
+function keyPressed (event) {
     console.log(`Key pressed: ${event.key}`);
-    if(event.key === 'c')
-        playSound(crash);
-    else if (event.key === 'k')
-        playSound(kick);
-    else if (event.key === 's')
-        playSound(share);
-    else if (event.key === 't')
-        playSound(tom);
-  });
+    if(event.key === 'c'){
+        playSound("crash");
+        displayKey('c', "")
+    }
+    else if (event.key === 'k'){
+        playSound("kick");
+        displayKey('k')
+    }
 
-function playSound( key ){
+    else if (event.key === 's'){
+        playSound("snare", 's' );
+        displayKey('s')
+
+    }
+
+    else if (event.key === 't'){
+        playSound("tom", 't');
+        displayKey('t')
+    }
+  }
+
+function playSound( key){
     const audio = document.createElement("audio");
-    audio.classList.add("key")
     audio.src = `/${audio_path}${key}.mp3`;
     console.log(" playing audio")
-    return audio.play()
+    audio.play()
 }
+
+function displayKey( keyChar, right ){
+    const displayKeyPressed = document.createElement('p');
+    displayKeyPressed.textContent = keyChar;
+    displayKeyPressed.classList.add("key");
+    right.childNodes.
+    setTimeout(()=>{displayKeyPressed.remove()}, 1000)
+    // return displayKeyPressed
+
+}
+
+
+// pass right in click event listener and access the values using child nodes. 
+//  pass the parent div in displaykey for it to access the div. use parent right and access the child
 

@@ -81,3 +81,17 @@ a {
   font-weight: bold;
   z-index: 50;
 }
+
+.keyhover{
+  width: 48%;
+  height: auto;
+  padding: 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.35s ease;
+  position: relative;
+  background-color: blanchedalmond;
+  opacity: 0.8;
+
+}

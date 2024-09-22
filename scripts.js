@@ -66,7 +66,7 @@ function playSound( key){
 
 function displayKey( keyChar, instrumentKey ){
     const displayKeyPressed = document.createElement('p');
-    displayKeyPressed.classList.add("key");
+    displayKeyPressed.classList.add("key", "keyhover");
     displayKeyPressed.textContent = keyChar;
     right.querySelector(`#${instrumentKey}`).parentElement.appendChild(displayKeyPressed);
     setTimeout(()=>{displayKeyPressed.remove()}, 1000)

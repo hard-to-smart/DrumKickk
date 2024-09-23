@@ -10,15 +10,15 @@ for(let key of instrument){
 
     image_container.classList.add("box")
     const img = document.createElement("img");
-
-
-    img.src = `/${image_path}${instrument[key]}.png`
-    img.addEventListener('click', ()=>{
-        playSound(instrument[key]);
-    });
+    img.setAttribute("id", key)
+    img.src = `/${image_path}${key}.png`
     right.appendChild(image_container).appendChild(img);
-    displayKey("", right)
-    console.log(right)
+    right.addEventListener('click', (event) => {
+        if (event.target.tagName === 'IMG') {
+            const instrumentKey = event.target.id;
+            playSound(instrumentKey);
+        }}
+    )
 }
 
 document.addEventListener("keydown", (event) => keyPressed(event));
@@ -26,28 +26,37 @@ document.addEventListener("keydown", (event) => keyPressed(event));
 
 function keyPressed (event) {
     console.log(`Key pressed: ${event.key}`);
-    if(event.key === 'c'){
+    switch (event.key){
+    case 'c':
+        {
         playSound("crash");
-        displayKey('c', "")
+        displayKey('c', 'crash')
+        break
     }
-    else if (event.key === 'k'){
+    case 'k':
+        {
         playSound("kick");
-        displayKey('k')
+        displayKey('k', 'kick')
+        break
     }
 
-    else if (event.key === 's'){
-        playSound("snare", 's' );
-        displayKey('s')
+    case 's':
+        {
+        playSound("snare");
+        displayKey('s', 'snare')
+        break
 
     }
 
-    else if (event.key === 't'){
-        playSound("tom", 't');
-        displayKey('t')
+    case 't':
+        {
+        playSound("tom");
+        displayKey('t', 'tom')
+        break
     }
-  }
+    }
+}
 
-function playSound( key){
 function playSound( key){
     const audio = document.createElement("audio");
     audio.src = `/${audio_path}${key}.mp3`;
@@ -55,17 +64,14 @@ function playSound( key){
     audio.play()
 }
 
-function displayKey( keyChar, right ){
+function displayKey( keyChar, instrumentKey ){
     const displayKeyPressed = document.createElement('p');
+    displayKeyPressed.classList.add("key", "keyhover");
     displayKeyPressed.textContent = keyChar;
-    displayKeyPressed.classList.add("key");
-    right.childNodes.
+    right.querySelector(`#${instrumentKey}`).parentElement.appendChild(displayKeyPressed);
     setTimeout(()=>{displayKeyPressed.remove()}, 1000)
-    // return displayKeyPressed
-
 }
 
 
 // pass right in click event listener and access the values using child nodes. 
 //  pass the parent div in displaykey for it to access the div. use parent right and access the child
-
